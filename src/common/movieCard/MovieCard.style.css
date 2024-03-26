@@ -1,0 +1,55 @@
+.movie-card {
+  width: 220px;
+  height: 330px;
+  background-size: cover;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(43, 41, 41, 0.9);
+  opacity: 0;
+  transition: all 1s;
+  color: white;
+  font-weight: bold;
+  overflow-wrap: break-word;
+}
+
+.overlay:hover {
+  opacity: 1;
+}
+.movie-card:hover {
+  transform: scale(1.3) translatez(20px);
+  z-index: 2;
+}
+
+.movie-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  margin: 10px;
+}
+
+.movie-detail div > * {
+  padding: 3px;
+}
+
+.adult {
+  color: red;
+  font-weight: bold;
+}
+.teens {
+  color: greenyellow;
+  font-weight: bold;
+}
+.fa-heart {
+  color: pink;
+}
+
+.fa-user {
+  color: rgb(166, 166, 39);
+}
