@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useMovieGenreQuery } from "../../pages/hooks/useMovieGenre";
+import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
   const { data: genreData } = useMovieGenreQuery();
@@ -22,6 +23,13 @@ const MovieCard = ({ movie }) => {
     return genreNameList;
   };
 
+  const navigate = useNavigate();
+
+  const goToMovieDetail = () => {
+    console.log("iii", movie?.id);
+    navigate(`/movies/${movie?.id}`);
+  };
+
   return (
     <div
       style={{
@@ -31,6 +39,7 @@ const MovieCard = ({ movie }) => {
           ")",
       }}
       className="movie-card"
+      onClick={goToMovieDetail}
     >
       <div className="overlay">
         <h1>{movie?.title}</h1>

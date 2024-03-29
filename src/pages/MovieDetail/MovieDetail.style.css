@@ -1,0 +1,30 @@
+img {
+  width: 425px;
+  height: 600px;
+}
+
+.main-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.line {
+  width: 480px;
+  height: 2px;
+  background-color: gray;
+  opacity: 0.3;
+}
+
+.genre-tags {
+  display: flex;
+}
+
+.genre-tags span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+  font-weight: 600;
+  margin-right: 5px;
+}
