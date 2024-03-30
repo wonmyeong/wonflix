@@ -6,6 +6,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Badge } from "react-bootstrap";
 import "./MovieDetail.style.css";
 import { useMovieReviewQuery } from "../hooks/useMovieReview";
+import { useState } from "react";
 
 const MovieDetail = () => {
   let { id } = useParams();
@@ -45,13 +46,7 @@ const MovieDetail = () => {
                 {Math.ceil(data?.popularity)}
               </div>
               <div className="line"></div>
-              {reviewData?.map((reviewData, index) => (
-                <p key={index}>
-                  {reviewData.content.length > 1000
-                    ? reviewData.content.slice(0, 1000)
-                    : reviewData.content}
-                </p>
-              ))}
+              <div>{data?.overview}</div>
 
               <div className="line"></div>
               <div className="detail">
@@ -61,6 +56,20 @@ const MovieDetail = () => {
               </div>
             </div>
           </Col>
+        </Row>
+        <Row>
+          <h3>Reviews</h3>
+          <div className="review-box">
+            {/* {reviewData?.map((review, index) => (
+              <p key={index}>{review.content}</p>
+            ))} */}
+            {reviewData?.map((review, index) => (
+              <div key={index} className="review-text">
+                <h5>{review.author}</h5>
+                {review.content}
+              </div>
+            ))}
+          </div>
         </Row>
       </Container>
     </div>

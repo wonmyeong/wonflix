@@ -28,3 +28,8 @@ img {
   font-weight: 600;
   margin-right: 5px;
 }
+
+.review-text {
+  border: 1px solid red;
+  padding: 20px;
+}
