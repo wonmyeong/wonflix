@@ -15,13 +15,13 @@ const ReviewMoreInfo = ({ reviewData }) => {
 
   return (
     <div>
-      {reviewData.map((review, index) => (
+      {reviewData?.map((review, index) => (
         <div className="review-text" key={index}>
           <h5>{review?.author}</h5>
           <p>{review?.content.split(".").slice(0, 2).join(".")}</p>
           <Collapse in={openIndex === index}>
             <p id={`hidden-review-${index}`}>
-              {review.content.split(".").slice(2).join(".")}
+              {review?.content.split(".").slice(2).join(".")}
             </p>
           </Collapse>
           <Button

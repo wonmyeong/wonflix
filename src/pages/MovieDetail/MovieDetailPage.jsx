@@ -7,18 +7,13 @@ import { Badge } from "react-bootstrap";
 import "./MovieDetail.style.css";
 import { useMovieReviewQuery } from "../hooks/useMovieReview";
 import ReviewMoreInfo from "./ReviewMoreInfo";
-import { useRecommendation } from "../hooks/useRecommendation";
+import RecommendedSlide from "../Homepage/components/RecommendedSlide/RecommendedSlide";
 
 const MovieDetail = () => {
   let { id } = useParams();
   console.log("id", id);
-  const [review, setReview] = useState(false);
-
   const { data, isLoading, isError, error } = useMovieDetail({ id });
   const { data: reviewData } = useMovieReviewQuery({ id });
-  const { data: dataRecommendation } = useRecommendation({ id });
-
-  console.log("rrr", dataRecommendation);
 
   if (isLoading) {
     return <h1>Loading....</h1>;
@@ -65,6 +60,9 @@ const MovieDetail = () => {
           <h3>Reviews</h3>
           <div className="review-box">
             <ReviewMoreInfo reviewData={reviewData} />
+          </div>
+          <div className="recommended-box">
+            <RecommendedSlide />
           </div>
         </Row>
       </Container>
