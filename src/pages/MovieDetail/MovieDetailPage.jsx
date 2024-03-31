@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import { useMovieDetail } from "../hooks/useMovieDetail";
 import { Alert } from "react-bootstrap";
 import { Container, Row, Col } from "react-bootstrap";
-import { Badge } from "react-bootstrap";
+import { Badge, Button } from "react-bootstrap";
 import "./MovieDetail.style.css";
 import { useMovieReviewQuery } from "../hooks/useMovieReview";
 import ReviewMoreInfo from "./ReviewMoreInfo";
 import RecommendedSlide from "./components/RecommendedSlide/RecommendedSlide";
 const MovieDetail = () => {
   let { id } = useParams();
+  const [review, setReview] = useState(true);
 
   const { data, isLoading, isError, error } = useMovieDetail({ id });
   const { data: reviewData } = useMovieReviewQuery({ id });
@@ -20,6 +21,13 @@ const MovieDetail = () => {
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;
   }
+  const handleReview = () => {
+    setReview(!review);
+  };
+
+  // const handleRecommended = () => {
+  //   console.log("reco");
+  // };
 
   return (
     <div>
@@ -56,12 +64,20 @@ const MovieDetail = () => {
           </Col>
         </Row>
         <Row>
-          <h3>Reviews</h3>
           <div className="review-box">
-            <ReviewMoreInfo reviewData={reviewData} />
-          </div>
-          <div className="recommended-box">
-            <RecommendedSlide />
+            <Button variant="outline-primary" onClick={handleReview}>
+              Review
+            </Button>
+            <Button variant="outline-primary" onClick={handleReview}>
+              Recommendation
+            </Button>
+            {review ? (
+              <ReviewMoreInfo reviewData={reviewData} />
+            ) : (
+              <RecommendedSlide />
+            )}
+            {/* <ReviewMoreInfo reviewData={reviewData} />
+            <RecommendedSlide /> */}
           </div>
         </Row>
       </Container>

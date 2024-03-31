@@ -15,6 +15,7 @@ const ReviewMoreInfo = ({ reviewData }) => {
 
   return (
     <div>
+      <h2>Review</h2>
       {reviewData?.map((review, index) => (
         <div className="review-text" key={index}>
           <h5>{review?.author}</h5>
