@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMovieDetail } from "../hooks/useMovieDetail";
 import { Alert } from "react-bootstrap";
@@ -12,6 +12,7 @@ import { useRecommendation } from "../hooks/useRecommendation";
 const MovieDetail = () => {
   let { id } = useParams();
   console.log("id", id);
+  const [review, setReview] = useState(false);
 
   const { data, isLoading, isError, error } = useMovieDetail({ id });
   const { data: reviewData } = useMovieReviewQuery({ id });
@@ -63,13 +64,7 @@ const MovieDetail = () => {
         <Row>
           <h3>Reviews</h3>
           <div className="review-box">
-            {reviewData?.map((review, index) => (
-              <div key={index} className="review-text">
-                <h5>{review.author}</h5>
-                {/* <p>{review.content}</p> */}
-                <ReviewMoreInfo reviewData={review?.content} />
-              </div>
-            ))}
+            <ReviewMoreInfo reviewData={reviewData} />
           </div>
         </Row>
       </Container>

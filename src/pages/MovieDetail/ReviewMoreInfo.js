@@ -3,26 +3,36 @@ import Button from "react-bootstrap/Button";
 import Collapse from "react-bootstrap/Collapse";
 
 const ReviewMoreInfo = ({ reviewData }) => {
-  const [open, setOpen] = useState(false);
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const handleToggle = (index) => {
+    if (openIndex === index) {
+      setOpenIndex(null);
+    } else {
+      setOpenIndex(index);
+    }
+  };
 
   return (
     <div>
-      <div className="review-text">
-        <h5>{reviewData?.author}</h5>
-        <p>
-          <p>{reviewData.split(".").slice(0, 2).join(".")}</p>
-        </p>
-        <Collapse in={open}>
-          <p id="hidden-review">{reviewData.split(".").slice(2).join(".")}</p>
-        </Collapse>
-        <Button
-          onClick={() => setOpen(!open)}
-          aria-controls="example-collapse-text"
-          aria-expanded={open}
-        >
-          {open === false ? "더보기" : "접기"}
-        </Button>
-      </div>
+      {reviewData.map((review, index) => (
+        <div className="review-text" key={index}>
+          <h5>{review?.author}</h5>
+          <p>{review?.content.split(".").slice(0, 2).join(".")}</p>
+          <Collapse in={openIndex === index}>
+            <p id={`hidden-review-${index}`}>
+              {review.content.split(".").slice(2).join(".")}
+            </p>
+          </Collapse>
+          <Button
+            onClick={() => handleToggle(index)}
+            aria-controls={`hidden-review-${index}`}
+            aria-expanded={openIndex === index}
+          >
+            {openIndex === index ? "접기" : "더보기"}
+          </Button>
+        </div>
+      ))}
     </div>
   );
 };
