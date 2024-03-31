@@ -1,0 +1,6 @@
+<Collapsible trigger="더보기">
+          <p>{firstSentence}</p>
+          <Collapsible trigger="더보기">
+            <p>{restOfText}</p>
+          </Collapsible>
+        </Collapsible>

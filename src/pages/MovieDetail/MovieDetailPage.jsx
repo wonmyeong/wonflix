@@ -6,7 +6,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Badge } from "react-bootstrap";
 import "./MovieDetail.style.css";
 import { useMovieReviewQuery } from "../hooks/useMovieReview";
-import { useState } from "react";
+import ReviewMoreInfo from "./ReviewMoreInfo";
+import { useRecommendation } from "../hooks/useRecommendation";
 
 const MovieDetail = () => {
   let { id } = useParams();
@@ -14,8 +15,10 @@ const MovieDetail = () => {
 
   const { data, isLoading, isError, error } = useMovieDetail({ id });
   const { data: reviewData } = useMovieReviewQuery({ id });
-  console.log("ddd", data);
-  console.log("rrr", reviewData);
+  const { data: dataRecommendation } = useRecommendation({ id });
+
+  console.log("rrr", dataRecommendation);
+
   if (isLoading) {
     return <h1>Loading....</h1>;
   }
@@ -60,13 +63,11 @@ const MovieDetail = () => {
         <Row>
           <h3>Reviews</h3>
           <div className="review-box">
-            {/* {reviewData?.map((review, index) => (
-              <p key={index}>{review.content}</p>
-            ))} */}
             {reviewData?.map((review, index) => (
               <div key={index} className="review-text">
                 <h5>{review.author}</h5>
-                {review.content}
+                {/* <p>{review.content}</p> */}
+                <ReviewMoreInfo reviewData={review?.content} />
               </div>
             ))}
           </div>
