@@ -7,11 +7,10 @@ import { Badge } from "react-bootstrap";
 import "./MovieDetail.style.css";
 import { useMovieReviewQuery } from "../hooks/useMovieReview";
 import ReviewMoreInfo from "./ReviewMoreInfo";
-import RecommendedSlide from "../Homepage/components/RecommendedSlide/RecommendedSlide";
-
+import RecommendedSlide from "./components/RecommendedSlide/RecommendedSlide";
 const MovieDetail = () => {
   let { id } = useParams();
-  console.log("id", id);
+
   const { data, isLoading, isError, error } = useMovieDetail({ id });
   const { data: reviewData } = useMovieReviewQuery({ id });
 

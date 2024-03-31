@@ -26,7 +26,6 @@ const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
 
   const goToMovieDetail = () => {
-    console.log("iii", movie?.id);
     navigate(`/movies/${movie?.id}`);
   };
 
