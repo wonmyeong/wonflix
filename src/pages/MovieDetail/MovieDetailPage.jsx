@@ -8,13 +8,19 @@ import "./MovieDetail.style.css";
 import { useMovieReviewQuery } from "../hooks/useMovieReview";
 import ReviewMoreInfo from "./ReviewMoreInfo";
 import RecommendedSlide from "./components/RecommendedSlide/RecommendedSlide";
+import Modal from "react-bootstrap/Modal";
+import YouTube from "react-youtube";
+import { useMovieVideoQuery } from "../hooks/useMovieVideo";
+import Youtube from "./components/Youtube";
 const MovieDetail = () => {
   let { id } = useParams();
   const [review, setReview] = useState(true);
+  const [show, setShow] = useState(false);
 
   const { data, isLoading, isError, error } = useMovieDetail({ id });
   const { data: reviewData } = useMovieReviewQuery({ id });
-
+  const { data: videoData } = useMovieVideoQuery({ id });
+  console.log("vvv", videoData);
   if (isLoading) {
     return <h1>Loading....</h1>;
   }
@@ -24,10 +30,8 @@ const MovieDetail = () => {
   const handleReview = () => {
     setReview(!review);
   };
-
-  // const handleRecommended = () => {
-  //   console.log("reco");
-  // };
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <div>
@@ -60,6 +64,24 @@ const MovieDetail = () => {
                 <div className="runtime">{data?.runtime}분</div>
                 <div className="revenue">USD {data?.revenue} </div>
               </div>
+              <Button variant="primary" onClick={handleShow}>
+                예고편
+              </Button>
+
+              <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+                size="lg"
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>예고편</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Youtube id={videoData[0]?.key} />
+                </Modal.Body>
+              </Modal>
             </div>
           </Col>
         </Row>
@@ -76,8 +98,6 @@ const MovieDetail = () => {
             ) : (
               <RecommendedSlide />
             )}
-            {/* <ReviewMoreInfo reviewData={reviewData} />
-            <RecommendedSlide /> */}
           </div>
         </Row>
       </Container>
