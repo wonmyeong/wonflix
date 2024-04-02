@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSearchMovieQuery } from "../hooks/useSearchMovie";
 import { Container, Row, Col } from "react-bootstrap";
@@ -6,19 +6,24 @@ import { Alert } from "react-bootstrap";
 import MovieCard from "../../common/movieCard/MovieCard";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
-
+import Dropdown from "react-bootstrap/Dropdown";
 //경로 2가지
 //navbar에서 클릭 => popularMovie 보여주기
 //키워드 입력
 const MoviePage = () => {
   const [query, setQuery] = useSearchParams();
   const [page, setPage] = useState(1);
+  const [movieData, setMovieData] = useState([]);
+
   const keyword = query.get("q");
 
-  const { data, isLoading, isError, error } = useSearchMovieQuery({
+  const { data, isLoading, isError, error, refetch } = useSearchMovieQuery({
     keyword,
     page,
   });
+  useEffect(() => {
+    setMovieData(data?.results);
+  }, []);
   console.log("ddd", data);
   if (isLoading) {
     return <h1>Loading....</h1>;
@@ -31,11 +36,26 @@ const MoviePage = () => {
     setPage(selected + 1);
   };
 
+  const handleSort = () => {
+    setMovieData(data.results.sort((a, b) => b.popularity - a.popularity));
+    console.log("changed", data);
+    // setPopular((prevPopular) => (prevPopular === null ? true : !prevPopular));
+    // setPage(1);
+  };
+
   return (
     <Container>
       <Row>
         <Col lg={6} xs={12}>
-          필터
+          <Dropdown data-bs-theme="dark">
+            <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
+              Sort
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={handleSort}>인기순</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Col>
         <Col lg={6} xs={12}>
           <Row>

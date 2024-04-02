@@ -12,6 +12,7 @@ import Modal from "react-bootstrap/Modal";
 import YouTube from "react-youtube";
 import { useMovieVideoQuery } from "../hooks/useMovieVideo";
 import Youtube from "./components/Youtube";
+
 const MovieDetail = () => {
   let { id } = useParams();
   const [review, setReview] = useState(true);
