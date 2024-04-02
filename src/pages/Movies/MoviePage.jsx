@@ -7,6 +7,7 @@ import MovieCard from "../../common/movieCard/MovieCard";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import Dropdown from "react-bootstrap/Dropdown";
+import { useMovieGenreQuery } from "../hooks/useMovieGenre";
 //경로 2가지
 //navbar에서 클릭 => popularMovie 보여주기
 //키워드 입력
@@ -21,10 +22,12 @@ const MoviePage = () => {
     keyword,
     page,
   });
+  const { data: GenreNameList } = useMovieGenreQuery();
   useEffect(() => {
     setMovieData(data?.results);
   }, []);
   console.log("ddd", data);
+
   if (isLoading) {
     return <h1>Loading....</h1>;
   }
@@ -54,6 +57,18 @@ const MoviePage = () => {
 
             <Dropdown.Menu>
               <Dropdown.Item onClick={handleSort}>인기순</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Dropdown data-bs-theme="dark">
+            <Dropdown.Toggle
+              variant="Secondary"
+              id="dropdown-basic"
+            ></Dropdown.Toggle>
+            Genre
+            <Dropdown.Menu>
+              {GenreNameList?.map((genreName) => (
+                <Dropdown.Item>{genreName.name}</Dropdown.Item>
+              ))}
             </Dropdown.Menu>
           </Dropdown>
         </Col>

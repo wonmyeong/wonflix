@@ -21,7 +21,7 @@ const MovieDetail = () => {
   const { data, isLoading, isError, error } = useMovieDetail({ id });
   const { data: reviewData } = useMovieReviewQuery({ id });
   const { data: videoData } = useMovieVideoQuery({ id });
-  console.log("vvv", videoData);
+
   if (isLoading) {
     return <h1>Loading....</h1>;
   }
@@ -33,7 +33,7 @@ const MovieDetail = () => {
   };
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  console.log(videoData);
   return (
     <div>
       <Container>
@@ -49,7 +49,7 @@ const MovieDetail = () => {
               <div>{data?.tagline}</div>
               <div className="genre-tags">
                 {data?.genres.map((genre) => (
-                  <Badge bg="danger">{genre.name}</Badge>
+                  <Badge bg="danger">{genre?.name}</Badge>
                 ))}
               </div>
               <div className="movie_vote">{Math.ceil(data?.vote_average)}</div>
@@ -80,7 +80,7 @@ const MovieDetail = () => {
                   <Modal.Title>예고편</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <Youtube id={videoData[0]?.key} />
+                  <Youtube id={videoData?.results[0].key} />
                 </Modal.Body>
               </Modal>
             </div>

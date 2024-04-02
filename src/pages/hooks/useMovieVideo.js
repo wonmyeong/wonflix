@@ -9,6 +9,6 @@ export const useMovieVideoQuery = ({ id }) => {
   return useQuery({
     queryKey: ["movie-video", { id }],
     queryFn: () => fetchMovieVideo({ id }),
-    select: (result) => result?.data.results,
+    select: (result) => result?.data,
   });
 };
