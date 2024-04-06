@@ -18,6 +18,7 @@ img {
 
 .genre-tags {
   display: flex;
+  padding: 10px;
 }
 
 .genre-tags span {
@@ -30,11 +31,34 @@ img {
 }
 
 .review-text {
-  border: 1px solid red;
+  border: 1px solid whitesmoke;
   padding: 20px;
 }
 
 .modal-header {
   color: black;
   font-weight: bold;
+}
+
+.movie_popularity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.movie_vote {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.movie-overview {
+  padding: 10px;
+}
+
+.detail {
+  padding: 3px;
+}
+
+.review-box {
+  margin: 20px 0px;
 }

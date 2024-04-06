@@ -1,0 +1,10 @@
+.yellow-badge {
+  background-color: #efcc47;
+  width: 60px;
+  height: 30px;
+  border-radius: 20%;
+  color: black;
+  margin: 10px;
+  text-align: center;
+  font-weight: bold;
+}

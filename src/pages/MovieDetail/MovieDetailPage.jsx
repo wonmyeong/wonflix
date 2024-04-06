@@ -12,6 +12,7 @@ import Modal from "react-bootstrap/Modal";
 import YouTube from "react-youtube";
 import { useMovieVideoQuery } from "../hooks/useMovieVideo";
 import Youtube from "./components/Youtube";
+import Yellow from "../../common/badges/Yellow";
 
 const MovieDetail = () => {
   let { id } = useParams();
@@ -53,19 +54,23 @@ const MovieDetail = () => {
                 ))}
               </div>
               <div className="movie_vote">
-                인기{Math.ceil(data?.vote_average)}
+                <Yellow inner={"인기"} />
+                {Math.ceil(data?.vote_average)}
               </div>
               <div className="movie_popularity">
+                <Yellow inner={"투표수"} />
                 {Math.ceil(data?.popularity)}
               </div>
               <div className="line"></div>
-              <div>{data?.overview}</div>
+              <div className="movie-overview">{data?.overview}</div>
 
               <div className="line"></div>
               <div className="detail">
-                <div className="release-date">{data?.release_date}</div>
-                <div className="runtime">{data?.runtime}분</div>
-                <div className="revenue">USD {data?.revenue} </div>
+                <div className="release-date">
+                  개봉일 : {data?.release_date}
+                </div>
+                <div className="runtime">Running Time : {data?.runtime}분</div>
+                <div className="revenue">수익 : USD {data?.revenue} </div>
               </div>
               <Button variant="primary" onClick={handleShow}>
                 예고편

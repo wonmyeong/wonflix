@@ -61,9 +61,13 @@ const MoviePage = () => {
   return (
     <Container>
       <Row>
-        <Col lg={6} xs={12}>
+        <Col lg={4} xs={12}>
           <Dropdown data-bs-theme="dark">
-            <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
+            <Dropdown.Toggle
+              variant="Secondary"
+              id="dropdown-basic"
+              style={{ fontSize: "30px" }}
+            >
               Sort
             </Dropdown.Toggle>
 
@@ -72,7 +76,11 @@ const MoviePage = () => {
             </Dropdown.Menu>
           </Dropdown>
           <Dropdown data-bs-theme="dark">
-            <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
+            <Dropdown.Toggle
+              variant="Secondary"
+              id="dropdown-basic"
+              style={{ fontSize: "30px" }}
+            >
               Genre
             </Dropdown.Toggle>
 
@@ -83,6 +91,7 @@ const MoviePage = () => {
                   onClick={(event) => {
                     handleGenre(event.target.id);
                   }}
+                  style={{ fontSize: "20px" }}
                 >
                   {genreName.name}
                 </Dropdown.Item>
@@ -90,7 +99,7 @@ const MoviePage = () => {
             </Dropdown.Menu>
           </Dropdown>
         </Col>
-        <Col lg={6} xs={12}>
+        <Col lg={8} xs={12}>
           <Row>
             {movieData?.map((movie, index) => (
               <Col key={index} lg={6} xs={12}>

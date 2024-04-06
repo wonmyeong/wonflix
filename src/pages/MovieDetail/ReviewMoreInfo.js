@@ -14,7 +14,7 @@ const ReviewMoreInfo = ({ reviewData }) => {
   };
 
   return (
-    <div>
+    <div className="review-box">
       <h2>Review</h2>
       {reviewData?.map((review, index) => (
         <div className="review-text" key={index}>
