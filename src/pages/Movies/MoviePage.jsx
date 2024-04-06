@@ -8,6 +8,7 @@ import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useMovieGenreQuery } from "../hooks/useMovieGenre";
+
 //경로 2가지
 //navbar에서 클릭 => popularMovie 보여주기
 //키워드 입력
@@ -18,15 +19,18 @@ const MoviePage = () => {
 
   const keyword = query.get("q");
 
-  const { data, isLoading, isError, error, refetch } = useSearchMovieQuery({
+  const { data, isLoading, isError, error } = useSearchMovieQuery({
     keyword,
     page,
   });
   const { data: GenreNameList } = useMovieGenreQuery();
+
   useEffect(() => {
     setMovieData(data?.results);
-  }, []);
-  console.log("ddd", data);
+    console.log("changed", data);
+  }, [data]);
+
+  console.log("ddd", data?.results);
 
   if (isLoading) {
     return <h1>Loading....</h1>;
@@ -40,10 +44,18 @@ const MoviePage = () => {
   };
 
   const handleSort = () => {
-    setMovieData(data.results.sort((a, b) => b.popularity - a.popularity));
-    console.log("changed", data);
-    // setPopular((prevPopular) => (prevPopular === null ? true : !prevPopular));
-    // setPage(1);
+    setMovieData(
+      [...data?.results].sort((a, b) => b.popularity - a.popularity)
+    );
+  };
+
+  const handleGenre = (id) => {
+    const filteredMovies = data?.results.filter((movie) =>
+      movie.genre_ids.includes(parseInt(id))
+    );
+    setMovieData(filteredMovies);
+
+    console.log("selectedId", id);
   };
 
   return (
@@ -60,21 +72,27 @@ const MoviePage = () => {
             </Dropdown.Menu>
           </Dropdown>
           <Dropdown data-bs-theme="dark">
-            <Dropdown.Toggle
-              variant="Secondary"
-              id="dropdown-basic"
-            ></Dropdown.Toggle>
-            Genre
+            <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
+              Genre
+            </Dropdown.Toggle>
+
             <Dropdown.Menu>
               {GenreNameList?.map((genreName) => (
-                <Dropdown.Item>{genreName.name}</Dropdown.Item>
+                <Dropdown.Item
+                  id={genreName.id}
+                  onClick={(event) => {
+                    handleGenre(event.target.id);
+                  }}
+                >
+                  {genreName.name}
+                </Dropdown.Item>
               ))}
             </Dropdown.Menu>
           </Dropdown>
         </Col>
         <Col lg={6} xs={12}>
           <Row>
-            {data?.results.map((movie, index) => (
+            {movieData?.map((movie, index) => (
               <Col key={index} lg={6} xs={12}>
                 <MovieCard movie={movie} />
               </Col>

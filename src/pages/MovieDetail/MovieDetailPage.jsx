@@ -52,7 +52,9 @@ const MovieDetail = () => {
                   <Badge bg="danger">{genre?.name}</Badge>
                 ))}
               </div>
-              <div className="movie_vote">{Math.ceil(data?.vote_average)}</div>
+              <div className="movie_vote">
+                인기{Math.ceil(data?.vote_average)}
+              </div>
               <div className="movie_popularity">
                 {Math.ceil(data?.popularity)}
               </div>
